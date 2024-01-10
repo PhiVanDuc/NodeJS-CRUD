@@ -4,7 +4,7 @@
 
 <a href="/users/add" class="btn btn-success mb-3">Add</a>
 
-<%- success ? `<div class="alert alert-success" role="alert"> Thêm thành công </div>` : '' %>
+<%- success ? `<div class="alert alert-success" role="alert"> ${success} </div>` : '' %>
 <form action="" class="mb-3">
     <div class="row">
         <div class="col-3">
@@ -46,18 +46,14 @@
 
     <tbody>
         <% users.forEach((user, index) => { %>
-            <tr>
+            <tr class="row-data">
                 <td><%= index + 1 %></td>
                 <td><%= user.name %></td>
                 <td><%= user.email %></td>
                 <td><%= user.status %></td>
                 <td><%= user.created_at %></td>
-                <td>
-                    <a href="#" class="btn btn-warning">Sửa</a>
-                </td>
-                <td>
-                    <label for="toggle-confirm-box" class="btn btn-danger" data-id="<%= user.id %>">Xóa</label>
-                </td>
+                <td><a href="/users/edit?id=<%= user.id %>" class="btn btn-warning text-white">Sửa</a></td>
+                <td><label for="toggle-confirm-box" class="btn btn-danger button-delete" data-id="<%= user.id %>">Xóa</label></td>
             </tr>
         <% }) %>
     </tbody>
@@ -77,7 +73,8 @@
 
         <div class="confirm-buttons p-3 text-end">
             <label for="toggle-confirm-box" class="btn btn-danger">Hủy</label>
-            <form class="d-inline" action="" method="post">
+            <form class="d-inline" action="/users/delete" method="post">
+                <input type="text" name="id" class="input-id" hidden>
                 <button class="bg-transparent p-0 m-0 border-0">
                     <label for="toggle-confirm-box" class="btn btn-success">Chấp nhận</label>
                 </button>
@@ -85,3 +82,5 @@
         </div>
     </div>
 </div>
+
+<script src="/javascripts/id.js"></script>

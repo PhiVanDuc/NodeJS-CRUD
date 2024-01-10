@@ -14,16 +14,32 @@ module.exports = {
             }`;
         }
         
-        return sql`SELECT * FROM users ${ filter }`;
+        return sql`SELECT * FROM users ${ filter } ORDER BY id DESC`;
+    },
+
+    getUser: (id) => {
+        return sql`SELECT * FROM users WHERE id=${id}`;
+    },
+
+    add: (data) => {
+        return sql`INSERT INTO users (name, email, password, status)
+        VALUES (${data.name.trim()}, ${data.email.trim()}, NULL, ${+data.status === 1 ? true : false})`
+    },
+
+    edit: (data, id) => {
+        return sql`UPDATE users set name=${data.name.trim()}, email=${data.email.trim()}, status=${+data.status === 1 ? true : false} WHERE id=${id}`;
+    },
+    
+    delete: (id) => {
+        return sql`DELETE FROM users WHERE id=${id}`;
     },
 
     getEmail: (email) => {
         return sql`SELECT email FROM users WHERE email=${email}`;
     },
 
-    add: (data) => {
-        return sql`INSERT INTO users (name, email, password, status)
-        VALUES (${data.name}, ${data.email}, NULL, ${+data.status})`
+    getEmailEdit: (email, id) => {
+        return sql`SELECT email FROM users WHERE email=${email} AND id!=${+id}`;
     }
 }
 
