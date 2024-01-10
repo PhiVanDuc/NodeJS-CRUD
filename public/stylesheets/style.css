@@ -1,0 +1,39 @@
+.confirm-box {
+    visibility: hidden;
+    opacity: 0;
+    z-index: -1;
+    transition-property: visibility, opacity;
+    transition: 0.4s linear;
+}
+
+.confirm-box .confirm-overlay,
+.confirm-box .confirm-wrap {
+    visibility: hidden;
+    opacity: 0;
+    transition-property: visibility, opacity;
+    transition: 0.4s linear;
+}
+
+.confirm-box .confirm-wrap {
+    transform: translateY(-100%);
+    top: 0;
+    transition-property: transform, top, visibility, opacity;
+}
+
+#toggle-confirm-box:checked ~ .confirm-box {
+    visibility: visible;
+    opacity: 1;
+    z-index: 1;
+}
+
+#toggle-confirm-box:checked ~ .confirm-box .confirm-overlay,
+#toggle-confirm-box:checked ~ .confirm-box .confirm-wrap {
+    visibility: visible;
+    opacity: 1;
+}
+
+#toggle-confirm-box:checked ~ .confirm-box .confirm-wrap {
+    scale: 1;
+    top: 50%;
+    transform: translateY(0%);
+}

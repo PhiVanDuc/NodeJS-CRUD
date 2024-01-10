@@ -1,0 +1,87 @@
+<input type="checkbox" id="toggle-confirm-box" hidden>
+
+<h1 class="mb-5">Danh sách người dùng</h1>
+
+<a href="/users/add" class="btn btn-success mb-3">Add</a>
+
+<%- success ? `<div class="alert alert-success" role="alert"> Thêm thành công </div>` : '' %>
+<form action="" class="mb-3">
+    <div class="row">
+        <div class="col-3">
+            <select name="status" class="form-select">
+                <option value="all">Tất cả</option>
+                <option value="active">Kích hoạt</option>
+                <option value="inactive">Chưa kích hoạt</option>
+            </select>
+        </div>
+
+        <div class="col-7">
+            <input
+                type="search"
+                class="form-control"
+                name="keyword"
+                placeholder="Từ khóa..."
+                autocomplete="off"
+            />
+        </div>
+
+        <div class="col-2 d-grid">
+            <button class="btn btn-primary">Tìm kiếm</button>
+        </div>
+    </div>
+</form>
+
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th width="5%">STT</th>
+            <th>Tên</th>
+            <th>Email</th>
+            <th>Trạng thái</th>
+            <th>Thời gian</th>
+            <th width="5%">Sửa</th>
+            <th width="5%">Xóa</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        <% users.forEach((user, index) => { %>
+            <tr>
+                <td><%= index + 1 %></td>
+                <td><%= user.name %></td>
+                <td><%= user.email %></td>
+                <td><%= user.status %></td>
+                <td><%= user.created_at %></td>
+                <td>
+                    <a href="#" class="btn btn-warning">Sửa</a>
+                </td>
+                <td>
+                    <label for="toggle-confirm-box" class="btn btn-danger" data-id="<%= user.id %>">Xóa</label>
+                </td>
+            </tr>
+        <% }) %>
+    </tbody>
+</table>
+
+<div class="confirm-box position-fixed top-0 start-0 bottom-0 end-0">
+    <div class="confirm-overlay position-absolute w-100 h-100" style="background-color: rgba(0, 0, 0, 0.4);"></div>
+
+    <div class="confirm-wrap position-absolute start-50 translate-middle bg-white rounded" style="width: 500px;">
+        <div class="confirm-heading p-3" style="border-bottom: 1px solid rgb(210, 210, 210);">
+            <h3 class="confirm-name fs-5 mb-0">Delete data warning!</h3>
+        </div>
+
+        <div class="confirm-content p-3" style="border-bottom: 1px solid rgb(210, 210, 210);">
+            <p class="confirm-question mb-0">Xác nhận xóa dữ liệu!</p>
+        </div>
+
+        <div class="confirm-buttons p-3 text-end">
+            <label for="toggle-confirm-box" class="btn btn-danger">Hủy</label>
+            <form class="d-inline" action="" method="post">
+                <button class="bg-transparent p-0 m-0 border-0">
+                    <label for="toggle-confirm-box" class="btn btn-success">Chấp nhận</label>
+                </button>
+            </form>
+        </div>
+    </div>
+</div>
